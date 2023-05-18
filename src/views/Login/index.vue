@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 import { usePersonStore } from '@/store/user';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
@@ -57,7 +57,7 @@ const handleLogin = () => {
         return;
     }
     counterStore.login(formData).then((result) => {
-        if (result === 'success') {
+        if (result === 'admin' || result === 'test') {
             router.push({ name: 'dashboard' });
             setTimeout(() => {
                 ElMessage({ message: '登陆成功！', type: 'success', offset: 60 });

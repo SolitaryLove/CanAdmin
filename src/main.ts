@@ -4,7 +4,7 @@ import pinia from '@/store';// 状态配置
 import './style.css'// 全局样式
 import 'element-plus/theme-chalk/el-message.css';// 引入 Elmessage 样式
 import '@/mock/index';// mock 数据
-import '@/permission';
+import '@/permission';// 权限控制
 import App from './App.vue'
 
 const app = createApp(App);

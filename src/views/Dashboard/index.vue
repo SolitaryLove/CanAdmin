@@ -1,13 +1,10 @@
 <template>
     <div class="wrapper">
-        <div>欢迎 {{ store.username }}</div>
         Dashboard
     </div>
 </template>
 
 <script setup lang='ts' name="Dashboard">
-import { usePersonStore } from '@/store/user';
-const store = usePersonStore();
 
 </script>
 <style scoped>

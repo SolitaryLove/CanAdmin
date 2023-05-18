@@ -48,7 +48,7 @@
                     <input type="text" placeholder="Search...">
                 </li>
                 <el-menu :collapse="isCollapse" class="el-menu-vertical-demo" background-color="var(--sidebar-color)"
-                    :default-active="routes[2].path">
+                    :default-active="store.routes[2].path">
                     <!-- <el-sub-menu index="1">
                         <template #title>
                             <i class="bx bx-home-alt icon"></i>
@@ -64,7 +64,8 @@
                             <span>Revenue</span>
                         </template>
                     </el-menu-item> -->
-                    <SidebarItem v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
+                    <!-- 根据路由表动态生成侧边栏菜单项 -->
+                    <SidebarItem v-for="route in store.routes" :key="route.path" :item="route" :base-path="route.path" />
                 </el-menu>
             </div>
             <div class="bottom-content">
@@ -93,6 +94,7 @@
 import { onMounted, ref, computed } from "vue";
 import { useRouter } from 'vue-router';
 import { usePersonStore } from "@/store/user";
+import { resetRouter } from "@/router";
 import SidebarItem from './SidebarItem.vue';
 
 onMounted(() => {
@@ -122,12 +124,16 @@ onMounted(() => {
 const isCollapse = ref<boolean>(true);
 
 const router = useRouter();
-const routes = computed(() => router.options.routes);// 路由表
-console.log(routes.value);
+/* const routes = computed(() => router.options.routes);// 路由表
+console.log(routes.value); */
 
 const store = usePersonStore();
 const logout = () => {
-    store.logout().then(() => router.push('/login'));
+    store.logout()
+    .then(() => {
+        router.push('/login');
+        resetRouter();
+    });
 }
 
 

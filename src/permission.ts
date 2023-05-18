@@ -5,6 +5,8 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import getPageTitle from '@/utils/get-page-title';
 import { usePersonStore } from '@/store/user';
+import { DynamicRoutes, FaultTolerantRoute } from '@/router/index';
+import { RouteRecordRaw } from 'vue-router';
 
 //全局进度条的配置
 NProgress.configure({
@@ -22,23 +24,43 @@ const whiteList = ['/login'];
 // 状态
 const store = usePersonStore(pinia);
 
+// 导航守卫
 router.beforeEach((to, from, next) => {
     NProgress.start();
     setTimeout(() => {
         const { token, username } = store;
-        if (token && token==='success') {
+        if (token && (token === 'admin' || token === 'test')) { // 登陆成功
             if (to.path === '/login') {
                 next('/');
                 NProgress.done();
             } else {
-                if (!username) {
-                    store.getInfo();
+                if (!username) { // 已登录但需要用户信息
+                    store.getInfo()
+                        .then((authority) => {
+                            // 动态路由过滤及合并
+                            const filterRoutes = DynamicRoutes.filter(route => {
+                                if ((authority as string[]).includes((route.name as string))) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            });
+                            filterRoutes.forEach((item) => {
+                                router.addRoute((item as RouteRecordRaw));
+                            });
+                            store.setRoutes(filterRoutes);
+                            if (!router.hasRoute('faultToleran')) {
+                                router.addRoute(FaultTolerantRoute[0]);
+                            }
+                            // next();
+                            next({ ...to, replace: true });
+                        })
+                } else {
                     next();
                 }
-                next();
             }
         } else {
-            if (whiteList.includes(to.path)) {
+            if (whiteList.includes(to.path)) { // 白名单默认放行
                 next();
             } else {
                 next('/login');

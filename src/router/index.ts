@@ -1,10 +1,9 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordName, RouteRecordRaw } from 'vue-router'
 import Layout from '@/layout/index.vue';
-Layout.name='Layout';
+Layout.name = 'Layout';
 
-// 定义路由
-// 路由数组的类型 RouteRecordRaw
-const routes: Array<RouteRecordRaw> = [
+// 通用路由
+export const UniversalRoutes: Array<RouteRecordRaw> = [
     {
         path: '/login',
         name: 'login',
@@ -16,6 +15,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: '/404',
+        name: '404',
         component: () => import('@/views/NotFound/index.vue'),
         meta: {
             title: '404',
@@ -26,6 +26,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/',
         component: Layout,
         redirect: '/dashboard',
+        name: 'dashboard',
         children: [{
             path: '/dashboard',
             name: 'dashboard',
@@ -37,9 +38,41 @@ const routes: Array<RouteRecordRaw> = [
             icon: 'bx-home-alt',
         }
     },
+    /* {
+        path: '/test',
+        component: Layout,
+        name: 'test',
+        children: [{
+            path: '',
+            name: 'test',
+            component: () => import('@/views/TestPage/index.vue'),
+        }],
+        meta: {
+            title: '测试',
+            hidden: false,
+            icon: 'bx-bar-chart-alt-2',
+        }
+    }, */
+];
+
+// 容错路由
+export const FaultTolerantRoute: Array<RouteRecordRaw> = [
+    {
+        path: '/:pathMatch(.*)*',
+        redirect: '/404',
+        name: ' faultToleran',
+        meta: {
+            hidden: true
+        }
+    }
+]
+
+// 动态路由
+export const DynamicRoutes: Array<RouteRecordRaw> = [
     {
         path: '/test',
         component: Layout,
+        name: 'test',
         children: [{
             path: '',
             name: 'test',
@@ -51,22 +84,23 @@ const routes: Array<RouteRecordRaw> = [
             icon: 'bx-bar-chart-alt-2',
         }
     },
-    // 404 page must be placed at the end !!!
-    {
-        path: '/:pathMatch(.*)*',
-        redirect: '/404',
-        meta: {
-            hidden: true
-        }
-    }
+]
 
-];
 // 创建路由实例并传递 routes 配置
 // vue2    mode history   vue3    createWebHistory
 // vue2    mode hash      vue3    createWebHashHistory
 // vue2    mode abstact   vue3    createMemoryHistory
 const router = createRouter({
     history: createWebHashHistory(),// hash 模式
-    routes,
+    routes: UniversalRoutes,
 });
+
+// 重置路由
+export function resetRouter() {
+    // console.log(router.options.routes);
+    DynamicRoutes.forEach((item) => {
+        router.removeRoute((item.name as RouteRecordName));
+    });
+}
+
 export default router;

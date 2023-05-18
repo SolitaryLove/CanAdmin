@@ -1,6 +1,6 @@
 <template>
     <div class="headBar">
-        <span>hello world</span>
+        <span>hello {{ store.username }}</span>
         <el-dropdown @command="handleCommand">
             <el-avatar shape="square" :size="35" :src="store.avatar">
                 <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
