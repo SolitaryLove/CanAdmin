@@ -61,7 +61,7 @@ Mock.mock('/mock/user/authority', 'post', (options) => {
     const body = JSON.parse(options.body);
     switch (body.token) {
         case 'admin':
-            return { data: { authority: ['test'] } };
+            return { data: { authority: ['test', 'canui'] } };
         case 'test':
             return { data: { authority: [] } };
     }

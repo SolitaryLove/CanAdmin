@@ -25,6 +25,8 @@
     "@types/nprogress": "^0.2.0",
     "@vitejs/plugin-vue": "^4.1.0",
     "mockjs": "^1.1.0",
+    "rollup-plugin-visualizer": "^5.9.0",
+    "sass": "^1.62.1",
     "typescript": "^5.0.2",
     "vite": "^4.3.2",
     "vite-plugin-mock": "^3.0.0",

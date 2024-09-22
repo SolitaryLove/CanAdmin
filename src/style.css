@@ -1,4 +1,4 @@
-/* 字体库不一定要是我这个，甚至不用也可以 */
+/* 字体库 */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
@@ -10,6 +10,7 @@
     --toggle-color: #ddd;
     --text-color: #707070;
     --active-color: #ffffff;
+    --nav-color: rgba(255,255,255,.7);
 
     /* 过渡效果 */
     --tran-02: all 0.2s ease;
@@ -37,9 +38,11 @@ body{
 body.dark{
     --body-color:#18191a;
     --sidebar-color:#242526;
-    --primary-color:#3a3b3c;
+    --primary-color:rgb(58, 59, 60);
     --primary-color-light:#3a3b3c;
     --toggle-color:#fff;
     --text-color:#ccc;
     --active-color: #ffffff;
+    --nav-color:rgba(36, 36, 36, .7);
+    
 }

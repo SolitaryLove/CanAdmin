@@ -5,10 +5,13 @@ import './style.css'// 全局样式
 import 'element-plus/theme-chalk/el-message.css';// 引入 Elmessage 样式
 import '@/mock/index';// mock 数据
 import '@/permission';// 权限控制
+import CanUI from '../can-ui';// CanUI组件库
 import App from './App.vue'
 
-const app = createApp(App);
+const app = createApp(App); 
 
+// 注册组件库
+app.use(CanUI);
 
 // 路由管理
 app.use(router);

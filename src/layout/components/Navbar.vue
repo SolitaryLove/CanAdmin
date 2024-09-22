@@ -31,13 +31,16 @@ const handleCommand = (command: string | number | object) => {
     background-color: var(--sidebar-color);
     color: var(--text-color);
     padding: 0 20px;
-    /* border-left: 1px dashed rgba(0,0,0,.3); */
     border-left: 1px dashed rgba(105, 92, 254, .3);
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: sticky;
     top: 0px;
+    z-index: 1;
+    background-size: 4px 4px;
+    backdrop-filter: saturate(50%) blur(8px);
+    background: var(--nav-color);
 }
 
 .el-dropdown-menu {

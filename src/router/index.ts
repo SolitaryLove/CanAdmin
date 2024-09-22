@@ -84,6 +84,21 @@ export const DynamicRoutes: Array<RouteRecordRaw> = [
             icon: 'bx-bar-chart-alt-2',
         }
     },
+    {
+        path: '/canui',
+        component: Layout,
+        name: 'canui',
+        children: [{
+            path: '',
+            name: 'canui',
+            component: () => import('@/views/CanUI/index.vue'),
+        }],
+        meta: {
+            title: 'UI',
+            hidden: false,
+            icon: 'bx-wallet',
+        }
+    },
 ]
 
 // 创建路由实例并传递 routes 配置

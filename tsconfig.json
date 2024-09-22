@@ -29,7 +29,11 @@
     "src/**/*.vue",
     "./**/*.ts",
     "./**/*.vue",
-    "vite.config.ts"
+    "vite.config.ts",
+    "can-ui/**/*.ts",
+    "can-ui/**/*.d.ts",
+    "can-ui/**/*.tsx",
+    "can-ui/**/*.vue",
   ],
   "references": [
     {

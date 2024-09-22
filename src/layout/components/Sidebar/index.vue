@@ -48,24 +48,9 @@
                     <input type="text" placeholder="Search...">
                 </li>
                 <el-menu :collapse="isCollapse" class="el-menu-vertical-demo" background-color="var(--sidebar-color)"
-                    :default-active="store.routes[2].path">
-                    <!-- <el-sub-menu index="1">
-                        <template #title>
-                            <i class="bx bx-home-alt icon"></i>
-                            <span>Navigator One</span>
-                        </template>
-                        <el-menu-item-group title="group one">
-                            <el-menu-item index="1-1">item one</el-menu-item>
-                        </el-menu-item-group>
-                    </el-sub-menu>
-                    <el-menu-item index="2">
-                        <i class='bx bx-bar-chart-alt-2 icon'></i>
-                        <template #title>
-                            <span>Revenue</span>
-                        </template>
-                    </el-menu-item> -->
+                    :default-active="(route.name as string)" @select="handleSelect">
                     <!-- 根据路由表动态生成侧边栏菜单项 -->
-                    <SidebarItem v-for="route in store.routes" :key="route.path" :item="route" :base-path="route.path" />
+                    <SidebarItem v-for="route in store.routes" :key="route.path" :item="route" :base-path="(route.name as string)" />
                 </el-menu>
             </div>
             <div class="bottom-content">
@@ -92,7 +77,7 @@
 
 <script setup lang='ts'>
 import { onMounted, ref, computed } from "vue";
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { usePersonStore } from "@/store/user";
 import { resetRouter } from "@/router";
 import SidebarItem from './SidebarItem.vue';
@@ -124,8 +109,10 @@ onMounted(() => {
 const isCollapse = ref<boolean>(true);
 
 const router = useRouter();
-/* const routes = computed(() => router.options.routes);// 路由表
-console.log(routes.value); */
+const route = useRoute();
+const handleSelect=((index:string)=>{
+    console.log(index);
+});
 
 const store = usePersonStore();
 const logout = () => {
@@ -258,6 +245,7 @@ body.dark .profession {
     font-size: 22px;
     cursor: pointer;
     transition: var(--tran-03);
+    z-index: 999;
 }
 
 body.dark .sidebar header .toggle {
